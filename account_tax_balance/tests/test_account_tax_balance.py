@@ -48,7 +48,7 @@ class TestAccountTaxBalance(HttpCase):
             {
                 "name": "Tax Paid",
                 "code": "TAXTEST",
-                "account_type": "expense",
+                "account_type": "liability_current",
             }
         )
         tax = self.env["account.tax"].create(
@@ -229,7 +229,7 @@ class TestAccountTaxBalance(HttpCase):
             }
         )
         move.action_post()
-        tax.env.invalidate_all()
+        tax.invalidate_recordset()
         self.assertEqual(tax.base_balance, 175.0)
         self.assertEqual(tax.balance, 17.5)
 
